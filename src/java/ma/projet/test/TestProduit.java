@@ -32,6 +32,9 @@ public class TestProduit {
         for(Produit p : ps.findBetweenDate(new Date("2021/01/01"), new Date("2023/01/01"))){
             System.out.println(p.getReference());
         }
+        
+        
+        ps.update(new Produit(17,"ref2",120,cs.getById(5)));
 
     }
 

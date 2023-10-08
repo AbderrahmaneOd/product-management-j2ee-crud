@@ -30,10 +30,32 @@ public class Produit {
         
     }
 
+    public Produit(int id, String reference, double prix, Categorie categorie) {
+        this.id = id;
+        this.reference = reference;
+        this.prix = prix;
+        this.categorie = categorie;
+    }
+    
+
+    public Categorie getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+    }
+
+
     public Produit(String reference, double prix, Categorie categorie) {
         this.reference = reference;
         this.prix = prix;
         this.categorie = categorie;
+    }
+
+    public Produit(String reference, double prix) {
+        this.reference = reference;
+        this.prix = prix;
     }
 
     public int getId() {

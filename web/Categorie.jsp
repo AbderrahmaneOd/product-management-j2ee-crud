@@ -10,59 +10,93 @@
 <!DOCTYPE html>
 <html>
     <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Inclure les fichiers Bootstrap via CDN -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Categorie</title>
     </head>
+
     <body>
-        <form action="CategorieController">
-            <fieldset>
-                <legend>Gestion des catégories</legend>
-                <table border="0">
-                   
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div >
+                <a class="navbar-brand" href="">
+                    <img src="produit.png" style="margin-left: 80px;" alt="Logo" width="30" height="30">
+
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="Categorie.jsp">Categorie</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Produit.jsp">Produit</a></li>
+
+
+                </ul>
+            </div>
+        </nav>
+        <div class="container mt-5">
+            <form action="CategorieController" method="post">
+                <fieldset>
+                    <legend>Gestion des catégories</legend><br><br>
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+                            <label for="code" class="form-label">Code:</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="code" name="code" value="">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+                            <label for="libelle" class="form-label">Libellé:</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="libelle" name="libelle" value="">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary" name="valider" style="width: 200px; margin-left: 190px;">Valider</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <fieldset><br><br>
+                <legend>Liste des catégories</legend><br><br>
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td>Code: </td>
-                            <td><input type="text" name="code" value="" /></td>
+                            <th>Code</th>
+                            <th>Libellé</th>
+                            <th>Actions</th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            CategorieService cs = new CategorieService();
+                            for (Categorie c : cs.findAll()) {
+                        %>
                         <tr>
-                            <td>Libelle : </td>
-                            <td><input type="text" name="libelle" value="" /></td>
+                            <td><%= c.getCode()%></td>
+                            <td><%= c.getLibelle()%></td>
+                            <td>
+                                <a href="CategorieController?op=delete&id=<%=c.getId()%>" class="btn btn-danger">Supprimer</a>
+                                <a href="#" class="btn btn-primary">Modifier</a>
+                            </td>
                         </tr>
-                        <tr>
-                            <td><input type="submit" value="Valider" name="valider" /></td>
-                            <td></td>
-                        </tr>
-               
+                        <%}%>
+                    </tbody>
                 </table>
-
             </fieldset>
-        </form>
-        
-        <fieldset>
-            <legend>Liste des catégories</legend>
-            <table border="0">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Libelle</th>
-                        <th>Supprimer</th>
-                        <th>Modifier</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
-                        CategorieService cs = new CategorieService();
-                      for(Categorie c : cs.findAll()){  
-                    %>
-                    <tr>
-                        <td><%= c.getCode() %></td>
-                        <td><%= c.getLibelle() %></td>
-                        <td><a href="CategorieController?op=delete&id=<%=c.getId() %>">Supprimer</a></td>
-                        <td><a href="">Modifier</a></td>
-                    </tr>
-                    <%}%>
-                </tbody>
-            </table>
+        </div>
 
-        </fieldset>
+        <!-- Inclure le JavaScript de Bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     </body>
+
 </html>

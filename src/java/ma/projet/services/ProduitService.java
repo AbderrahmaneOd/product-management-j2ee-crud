@@ -44,8 +44,46 @@ public class ProduitService implements IDao<Produit> {
             }
         }
     }
-
-   
+public boolean update(Produit o) {
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            session.update(o);
+            tx.commit();
+            return true;
+        } catch (HibernateException ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            return false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+    public boolean delete(Produit o) {
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            session.delete(o);
+            tx.commit();
+            return true;
+        } catch (HibernateException ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            return false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
 
     public List<Produit> findBetweenDate(Date d1, Date d2) {
         List<Produit> produits = null;

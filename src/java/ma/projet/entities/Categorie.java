@@ -6,6 +6,7 @@
 package ma.projet.entities;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +24,7 @@ public class Categorie {
     private int id;
     private String code;
     private String libelle;
-    @OneToMany(mappedBy = "categorie")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "categorie")
     private List<Produit> produits;
     public Categorie() {
     }
