@@ -6,22 +6,22 @@
 package ma.projet.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import ma.projet.entities.Produit;
 import ma.projet.entities.Commande;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import ma.projet.entities.LigneCommandeProduit;
 import ma.projet.entities.LigneCommandeProduitPK;
-import ma.projet.entities.Produit;
-import ma.projet.services.LigneCommandeProduitService;
-
+import ma.projet.services.CategorieService;
 import ma.projet.services.CommandeService;
+import ma.projet.services.LigneCommandeProduitService;
 import ma.projet.services.ProduitService;
 
 /**
@@ -33,20 +33,16 @@ public class CommandeController extends HttpServlet {
 
     private ProduitService ps;
     private CommandeService cmds;
-
     private CommandeService cs;
     private LigneCommandeProduitService lcps;
-
 
     @Override
     public void init() throws ServletException {
         super.init(); //To change body of generated methods, choose Tools | Templates.
         cmds = new CommandeService();
-
         ps = new ProduitService();
         cs = new CommandeService();
         lcps = new LigneCommandeProduitService();
-
     }
 
     /**
@@ -69,15 +65,12 @@ public class CommandeController extends HttpServlet {
         } else {
 
             String dateStr = request.getParameter("date");
-            String statut = request.getParameter("statut");
-            int utilisateurId = Integer.parseInt(request.getParameter("utilisateurId"));
             Date date = null;
 
             if (dateStr != null && !dateStr.isEmpty()) {
                 try {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     date = dateFormat.parse(dateStr);
-
                     int quantite = Integer.parseInt(request.getParameter("quantite"));
                     int ProduitId = Integer.parseInt(request.getParameter("produitId"));
                     Commande c = new Commande(date);
@@ -87,15 +80,11 @@ public class CommandeController extends HttpServlet {
                      LigneCommandeProduit lp = new LigneCommandeProduit(lpk, quantite);
                     lcps.create(lp);
 
-
                 } catch (java.text.ParseException e) {
                     System.out.println(e.getMessage());
                 }
             }
 
-
-
-            cmds.create(new Commande(date));
         }
         response.sendRedirect("Commande.jsp");
 

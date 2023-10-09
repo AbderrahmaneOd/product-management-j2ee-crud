@@ -3,12 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ADMIN/Desktop/product-management-j2ee-crud/src/java/ma/projet/test/TestProduit.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/product-management-j2ee-crud/src/java/ma/projet/test/TestCommande.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/product-management-j2ee-crud/src/java/ma/projet/test/TestLigneCommandeProduit.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/product-management-j2ee-crud/web/Commande.jsp</file>
-            <file>file:/C:/Users/ADMIN/Desktop/product-management-j2ee-crud/src/java/ma/projet/config/hibernate.cfg.xml</file>
-            <file>file:/C:/Users/ADMIN/Desktop/product-management-j2ee-crud/web/Produit.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/GI/S7/Developpement%20Web%20Java%20EE/Compte%20rendu%20Hibernate/Gestion%20des%20commandes/src/java/ma/projet/entities/Commande.java</file>
         </group>
     </open-files>
 </project-private>
