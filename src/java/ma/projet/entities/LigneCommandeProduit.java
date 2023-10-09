@@ -5,12 +5,16 @@
  */
 package ma.projet.entities;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -28,20 +32,22 @@ public class LigneCommandeProduit {
             
     private int quantite;
     
-
-    @ManyToOne()
+    @ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="commande",referencedColumnName="id",insertable = false,updatable = false)
     private Commande commande;
     
 
-    @ManyToOne()
+    @ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="produit",referencedColumnName="id",insertable = false,updatable = false)
     private Produit produit;
+    
 
     public LigneCommandeProduit(LigneCommandeProduitPK id, int quantite) {
         this.id = id;
         this.quantite = quantite;
     }
+    
+    
     
 
     public LigneCommandeProduit(int quantite, Commande commande, Produit produit) {

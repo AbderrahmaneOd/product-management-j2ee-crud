@@ -40,7 +40,48 @@ public class CommandeService implements IDao<Commande>{
         }
     }
 
-   
+   public boolean update(Commande o) {
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            session.update(o);
+            tx.commit();
+            return true;
+        } catch (HibernateException ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            return false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+   public boolean delete(Commande o) {
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            session.delete(o);
+            tx.commit();
+            return true;
+        } catch (HibernateException ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            return false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
    
 
     @Override

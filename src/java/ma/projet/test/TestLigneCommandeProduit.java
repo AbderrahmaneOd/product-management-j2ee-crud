@@ -34,6 +34,8 @@ public class TestLigneCommandeProduit {
         LigneCommandeProduit lp2 = new LigneCommandeProduit(lpk2, 10);
         lcps.create(lp);
         lcps.create(lp2);
+        
+             
        
     }
 }

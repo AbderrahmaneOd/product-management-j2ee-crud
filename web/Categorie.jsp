@@ -22,22 +22,23 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div >
-                <a class="navbar-brand" href="">
-                    <img src="produit.png" style="margin-left: 80px;" alt="Logo" width="30" height="30">
+         <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div >
+            <a class="navbar-brand" href="">
+                <img src="produit.png" style="margin-left: 80px;" alt="Logo" width="30" height="30">
 
-                </a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="Categorie.jsp">Categorie</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Produit.jsp">Produit</a></li>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="Categorie.jsp">Categorie</a></li>
+                <li class="nav-item"><a class="nav-link" href="Produit.jsp">Produit</a></li>
+                <li class="nav-item"><a class="nav-link" href="Commande.jsp">Commande</a></li>
 
 
-                </ul>
-            </div>
-        </nav>
+            </ul>
+        </div>
+    </nav>
         <div class="container mt-5">
             <form action="CategorieController" method="post">
                 <fieldset>

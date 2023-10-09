@@ -13,24 +13,36 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ma.projet.entities.Produit;
+import ma.projet.entities.Commande;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import ma.projet.entities.LigneCommandeProduit;
+import ma.projet.entities.LigneCommandeProduitPK;
 import ma.projet.services.CategorieService;
+import ma.projet.services.CommandeService;
+import ma.projet.services.LigneCommandeProduitService;
 import ma.projet.services.ProduitService;
 
 /**
  *
  * @author ADMIN
  */
-@WebServlet(name = "ProduitController", urlPatterns = {"/ProduitController"})
-public class ProduitController extends HttpServlet {
+@WebServlet(name = "CommandeController", urlPatterns = {"/CommandeController"})
+public class CommandeController extends HttpServlet {
 
     private ProduitService ps;
-    private CategorieService cs;
+    private CommandeService cmds;
+    private CommandeService cs;
+    private LigneCommandeProduitService lcps;
 
     @Override
     public void init() throws ServletException {
         super.init(); //To change body of generated methods, choose Tools | Templates.
+        cmds = new CommandeService();
         ps = new ProduitService();
-        cs = new CategorieService();
+        cs = new CommandeService();
+        lcps = new LigneCommandeProduitService();
     }
 
     /**
@@ -47,17 +59,34 @@ public class ProduitController extends HttpServlet {
         if (request.getParameter("op") != null) {
             String op = request.getParameter("op");
             if (op.equals("delete")) {
-                ps.delete(ps.getById(Integer.parseInt(request.getParameter("id"))));
-            } 
+                cmds.delete(cmds.getById(Integer.parseInt(request.getParameter("id"))));
+            }
 
         } else {
 
-            Double prix = Double.parseDouble(request.getParameter("prix"));
-            String reference = request.getParameter("reference");
-            int categorieId = Integer.parseInt(request.getParameter("categorieId"));
-            ps.create(new Produit(reference, prix, cs.getById(categorieId)));
+            String dateStr = request.getParameter("date");
+            Date date = null;
+
+            if (dateStr != null && !dateStr.isEmpty()) {
+                try {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    date = dateFormat.parse(dateStr);
+                    int quantite = Integer.parseInt(request.getParameter("quantite"));
+                    int ProduitId = Integer.parseInt(request.getParameter("produitId"));
+                    Commande c = new Commande(date);
+                    cs.create(c);
+                    Produit p = ps.getById(ProduitId);
+                    LigneCommandeProduitPK lpk = new LigneCommandeProduitPK(p.getId(), c.getId());
+                     LigneCommandeProduit lp = new LigneCommandeProduit(lpk, quantite);
+                    lcps.create(lp);
+
+                } catch (java.text.ParseException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
         }
-        response.sendRedirect("Produit.jsp");
+        response.sendRedirect("Commande.jsp");
 
     }
 
