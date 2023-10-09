@@ -48,24 +48,7 @@ public class ProduitController extends HttpServlet {
             String op = request.getParameter("op");
             if (op.equals("delete")) {
                 ps.delete(ps.getById(Integer.parseInt(request.getParameter("id"))));
-            } else if (op.equals("update")) {
-
-                int produitId = Integer.parseInt(request.getParameter("id"));
-                Produit produit = ps.getById(produitId);
-                request.setAttribute("produit", produit);
-                
-                request.getRequestDispatcher("ProduitUpdate.jsp").forward(request, response);
-
-            } else if (request.getParameter("modifier") != null) {
-                
-                int produit = Integer.parseInt(request.getParameter("id"));
-                double prix = Double.parseDouble(request.getParameter("prix"));
-                String reference = request.getParameter("reference");
-                int categorieId = Integer.parseInt(request.getParameter("categorieId"));
-                 
-                ps.update(new Produit(produit,reference,prix,cs.getById(categorieId)));
-                response.sendRedirect("Produit.jsp");
-            }
+            } 
 
         } else {
 

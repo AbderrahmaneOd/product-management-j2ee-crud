@@ -18,6 +18,9 @@ public class TestCommande {
 
         CommandeService cs = new CommandeService();
         cs.create(new Commande(new Date()) );
+        Commande c=cs.getById(1);
+         
+        
         
 }
 

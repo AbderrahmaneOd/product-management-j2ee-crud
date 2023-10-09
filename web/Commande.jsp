@@ -5,15 +5,16 @@
 --%>
 
 <%@page import="ma.projet.services.UtilisateurService"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="ma.projet.entities.LigneCommandeProduit"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="ma.projet.services.CategorieService"%>
-<%@page import="ma.projet.entities.Categorie"%>
 <%@page import="ma.projet.services.CommandeService"%>
-<%@page import="ma.projet.entities.Produit"
-        import="ma.projet.entities.Utilisateur"%>
-
+<%@page import="ma.projet.entities.Categorie"%>
 <%@page import="ma.projet.services.ProduitService"%>
 <%@page import="ma.projet.entities.Commande"%>
+<%@page import="ma.projet.entities.Produit"%>
+<%@page import="ma.projet.entities.Utilisateur"%>
 <!DOCTYPE html>
 
 
@@ -54,34 +55,41 @@
             <form action="CommandeController" method="post">
                 <fieldset>
                     <legend>Gestion des Commande</legend><br><br>
+
+
                     <div class="row mb-3">
                         <div class="col-md-2">
-                            <label for="prix" class="form-label">Date:</label>
+                            <label for="date" class="form-label">Date :</label>
                         </div>
                         <div class="col-md-4">
                             <input type="date" class="form-control" id="date" name="date" value="">
                         </div>
+                    </div>
+                    <div class="row mb-3">
                         <div class="col-md-2">
-                            <label for="prix" class="form-label">Statut</label>
+                            <label for="produitId" class="form-label">Produit :</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="statut" name="statut" value="">
-                        </div>
-                        <div class="row mb-3">
-                        <div class="col-md-2">
-                            <label for="categorieId" class="form-label">Utilisateur</label>
-                        </div>
-                        <div class="col-md-4">
-                            <select class="form-select" id="utilisateurId" name="utilisateurId">
-                                <option value="" disabled >Utilisateur</option>
-                                <% UtilisateurService us = new UtilisateurService(); %>
-                                <% for (Utilisateur u : us.findAll()) {%>
-                                <option value="<%= u.getId()%>"><%= u.getNom()%></option>
+                            <select class="form-select" id="produitId" name="produitId">
+                                <option value="" disabled >Produit</option>
+                                <% ProduitService ps = new ProduitService(); %>
+                                <% for (Produit p : ps.findAll()) {%>
+                                <option value="<%= p.getId()%>"><%= p.getReference()%></option>
                                 <% } %>
                             </select>
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+                            <label for="quantite" class="form-label">Quantité:</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="number" class="form-control" id="quantite" name="quantite" value="">
+                        </div>
                     </div>
+
+
+
 
 
                     <div class="row mb-3">
@@ -101,23 +109,27 @@
                         <tr>
                             <th>Id</th>
                             <th>Date</th>
-                            <th>Statut</th>
-                            <th>Utilisateur ID</th>
+                          
+
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <%
-                            CommandeService ps = new CommandeService();
-                            for (Commande c : ps.findAll()) {
+                            CommandeService cs = new CommandeService();
+                            for (Commande c : cs.findAll()) {
                         %>
                         <tr>
                             <td><%= c.getId()%></td>
                             <td><%= c.getDate()%></td>
-                            <td><%= c.getStatut()%></td>
-                            <td><%= c.getUtilisateur()%></td>
+                            
+
+                            <td></td>
+
                             <td>
-                                <a href="ProduitController?op=delete&id=<%=c.getId()%>" class="btn btn-danger">Supprimer</a>
+                                <a href="CommandeController?op=delete&id=<%=c.getId()%>" class="btn btn-danger">Supprimer</a>
                                 <a href="" class="btn btn-primary">Modifier</a>
+
                             </td>
                             <%}%>
                         </tr>

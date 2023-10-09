@@ -15,9 +15,14 @@ import ma.projet.entities.Commande;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import ma.projet.entities.LigneCommandeProduit;
+import ma.projet.entities.LigneCommandeProduitPK;
+import ma.projet.entities.Produit;
+import ma.projet.services.LigneCommandeProduitService;
+
 import ma.projet.services.CommandeService;
 import ma.projet.services.ProduitService;
-import ma.projet.services.UtilisateurService;
 
 /**
  *
@@ -28,13 +33,20 @@ public class CommandeController extends HttpServlet {
 
     private ProduitService ps;
     private CommandeService cmds;
-    private UtilisateurService us;
+
+    private CommandeService cs;
+    private LigneCommandeProduitService lcps;
+
 
     @Override
     public void init() throws ServletException {
         super.init(); //To change body of generated methods, choose Tools | Templates.
         cmds = new CommandeService();
-        us = new UtilisateurService();
+
+        ps = new ProduitService();
+        cs = new CommandeService();
+        lcps = new LigneCommandeProduitService();
+
     }
 
     /**
@@ -65,12 +77,25 @@ public class CommandeController extends HttpServlet {
                 try {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     date = dateFormat.parse(dateStr);
+
+                    int quantite = Integer.parseInt(request.getParameter("quantite"));
+                    int ProduitId = Integer.parseInt(request.getParameter("produitId"));
+                    Commande c = new Commande(date);
+                    cs.create(c);
+                    Produit p = ps.getById(ProduitId);
+                    LigneCommandeProduitPK lpk = new LigneCommandeProduitPK(p.getId(), c.getId());
+                     LigneCommandeProduit lp = new LigneCommandeProduit(lpk, quantite);
+                    lcps.create(lp);
+
+
                 } catch (java.text.ParseException e) {
                     System.out.println(e.getMessage());
                 }
             }
 
-            cmds.create(new Commande(date, statut, us.getById(utilisateurId)));
+
+
+            cmds.create(new Commande(date));
         }
         response.sendRedirect("Commande.jsp");
 

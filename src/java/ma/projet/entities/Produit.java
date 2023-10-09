@@ -5,12 +5,15 @@
  */
 package ma.projet.entities;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQuery;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -19,6 +22,7 @@ import javax.persistence.NamedNativeQuery;
 @Entity
 @NamedNativeQuery(name = "betweenDate", query = "SELECT p.* FROM produit p inner join lignecommandeproduit l on p.id = l.produit inner join commande c on c.id = l.commande where c.date BETWEEN :d1 and :d2", resultClass = Produit.class)
 public class Produit {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -26,8 +30,9 @@ public class Produit {
     private double prix;
     @ManyToOne
     private Categorie categorie;
+
     public Produit() {
-        
+
     }
 
     public Produit(int id, String reference, double prix, Categorie categorie) {
@@ -36,7 +41,6 @@ public class Produit {
         this.prix = prix;
         this.categorie = categorie;
     }
-    
 
     public Categorie getCategorie() {
         return categorie;
@@ -45,7 +49,6 @@ public class Produit {
     public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
     }
-
 
     public Produit(String reference, double prix, Categorie categorie) {
         this.reference = reference;
@@ -81,6 +84,5 @@ public class Produit {
     public void setPrix(double prix) {
         this.prix = prix;
     }
-    
-    
+
 }

@@ -8,6 +8,7 @@ package ma.projet.entities;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ public class Categorie {
     private int id;
     private String code;
     private String libelle;
-    @OneToMany(cascade=CascadeType.ALL, mappedBy = "categorie")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "categorie", fetch = FetchType.EAGER)
     private List<Produit> produits;
     public Categorie() {
     }
