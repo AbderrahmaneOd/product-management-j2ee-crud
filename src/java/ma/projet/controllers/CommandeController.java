@@ -12,13 +12,30 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import ma.projet.entities.Produit;
+import ma.projet.entities.Commande;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import ma.projet.services.CategorieService;
+import ma.projet.services.CommandeService;
+import ma.projet.services.ProduitService;
 
 /**
  *
  * @author ADMIN
  */
-@WebServlet(name = "CammandeController", urlPatterns = {"/CammandeController"})
-public class CammandeController extends HttpServlet {
+@WebServlet(name = "CommandeController", urlPatterns = {"/CommandeController"})
+public class CommandeController extends HttpServlet {
+
+    private ProduitService ps;
+    private CommandeService cmds;
+
+    @Override
+    public void init() throws ServletException {
+        super.init(); //To change body of generated methods, choose Tools | Templates.
+        cmds = new CommandeService();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,19 +48,30 @@ public class CammandeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CammandeController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CammandeController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        if (request.getParameter("op") != null) {
+            String op = request.getParameter("op");
+            if (op.equals("delete")) {
+                cmds.delete(cmds.getById(Integer.parseInt(request.getParameter("id"))));
+            }
+
+        } else {
+
+            String dateStr = request.getParameter("date");
+            Date date = null;
+
+            if (dateStr != null && !dateStr.isEmpty()) {
+                try {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    date = dateFormat.parse(dateStr);
+                } catch (java.text.ParseException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+            cmds.create(new Commande(date));
         }
+        response.sendRedirect("Commande.jsp");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
