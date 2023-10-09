@@ -1,12 +1,12 @@
 <%-- 
-    Document   : Categorie
-    Created on : 4 oct. 2023, 11:52:10
-    Author     : Lachgar
+    Document   : Utilisateur
+    Created on : 09-Oct-2023, 21:45:08
+    Author     : hp
 --%>
 
-<%@page import="ma.projet.services.CategorieService"%>
-<%@page import="ma.projet.entities.Categorie"%>
+<%@page import="ma.projet.services.UtilisateurService"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="ma.projet.entities.Utilisateur"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,7 +18,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Categorie</title>
+        <title>Gestion des Utilisateurs</title>
     </head>
 
     <body>
@@ -36,27 +36,52 @@
                     <li class="nav-item"><a class="nav-link" href="Commande.jsp">Commande</a></li>
                     <li class="nav-item"><a class="nav-link" href="Utilisateur.jsp">Utilisateur</a></li>
 
+
                 </ul>
             </div>
         </nav>
         <div class="container mt-5">
-            <form action="CategorieController" method="post">
+            <form action="UtilisateurController" method="post">
                 <fieldset>
-                    <legend>Gestion des catégories</legend><br><br>
+                    <legend>Gestion des Utilisateurs</legend><br><br>
                     <div class="row mb-3">
                         <div class="col-md-2">
-                            <label for="code" class="form-label">Code:</label>
+                            <label for="nome" class="form-label">Nome</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="code" name="code" value="">
+                            <input type="text" class="form-control" id="nom" name="nom" value="">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-2">
-                            <label for="libelle" class="form-label">Libellé:</label>
+                            <label for="prenom" class="form-label">Prénom</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="libelle" name="libelle" value="">
+                            <input type="text" class="form-control" id="prenom" name="prenom" value="">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+                            <label for="role" class="form-label">Role</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="role" name="role" value="">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+                            <label for="telephone" class="form-label">Telephone</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="tel" class="form-control" id="telephone" name="telephone" value="">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+                            <label for="adresse" class="form-label">Adresse</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="adresse" name="adresse" value="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -68,25 +93,31 @@
             </form>
 
             <fieldset><br><br>
-                <legend>Liste des catégories</legend><br><br>
+                <legend>Liste des Utilisateurs</legend><br><br>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>Libellé</th>
-                            <th>Actions</th>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>role</th>
+                            <th>Telephone</th>
+                            <th>Adresse</th>
                         </tr>
                     </thead>
                     <tbody>
                         <%
-                            CategorieService cs = new CategorieService();
-                            for (Categorie c : cs.findAll()) {
+                            UtilisateurService us = new UtilisateurService();
+                            for (Utilisateur u : us.findAll()) {
                         %>
                         <tr>
-                            <td><%= c.getCode()%></td>
-                            <td><%= c.getLibelle()%></td>
+                            <td><%= u.getNom()%></td>
+                            <td><%= u.getPrenom()%></td>
+                            <td><%= u.getPrenom()%></td>
+                            <td><%= u.getRole()%></td>
+                            <td><%= u.getTelephone()%></td>
+                            <td><%= u.getAdresse()%></td>
                             <td>
-                                <a href="CategorieController?op=delete&id=<%=c.getId()%>" class="btn btn-danger">Supprimer</a>
+                                <a href="UtilisateurController?op=delete&id=<%=u.getId()%>" class="btn btn-danger">Supprimer</a>
                                 <a href="#" class="btn btn-primary">Modifier</a>
                             </td>
                         </tr>

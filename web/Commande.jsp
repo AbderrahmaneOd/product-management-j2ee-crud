@@ -4,11 +4,13 @@
     Author     : ADMIN
 --%>
 
+<%@page import="ma.projet.services.UtilisateurService"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="ma.projet.services.CategorieService"%>
 <%@page import="ma.projet.entities.Categorie"%>
 <%@page import="ma.projet.services.CommandeService"%>
-<%@page import="ma.projet.entities.Produit"%>
+<%@page import="ma.projet.entities.Produit"
+        import="ma.projet.entities.Utilisateur"%>
 
 <%@page import="ma.projet.services.ProduitService"%>
 <%@page import="ma.projet.entities.Commande"%>
@@ -27,7 +29,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Produit</title>
+        <title>Commande</title>
     </head>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div >
@@ -41,7 +43,8 @@
                 <li class="nav-item"><a class="nav-link" href="Categorie.jsp">Categorie</a></li>
                 <li class="nav-item"><a class="nav-link" href="Produit.jsp">Produit</a></li>
                 <li class="nav-item"><a class="nav-link" href="Commande.jsp">Commande</a></li>
-
+                <li class="nav-item"><a class="nav-link" href="Utilisateur.jsp">Utilisateur</a></li>
+               
 
             </ul>
         </div>
@@ -58,6 +61,26 @@
                         <div class="col-md-4">
                             <input type="date" class="form-control" id="date" name="date" value="">
                         </div>
+                        <div class="col-md-2">
+                            <label for="prix" class="form-label">Statut</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="statut" name="statut" value="">
+                        </div>
+                        <div class="row mb-3">
+                        <div class="col-md-2">
+                            <label for="categorieId" class="form-label">Utilisateur</label>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-select" id="utilisateurId" name="utilisateurId">
+                                <option value="" disabled >Utilisateur</option>
+                                <% UtilisateurService us = new UtilisateurService(); %>
+                                <% for (Utilisateur u : us.findAll()) {%>
+                                <option value="<%= u.getId()%>"><%= u.getNom()%></option>
+                                <% } %>
+                            </select>
+                        </div>
+                    </div>
                     </div>
 
 
@@ -78,7 +101,8 @@
                         <tr>
                             <th>Id</th>
                             <th>Date</th>
-                            <th>Actions</th>
+                            <th>Statut</th>
+                            <th>Utilisateur ID</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,6 +113,8 @@
                         <tr>
                             <td><%= c.getId()%></td>
                             <td><%= c.getDate()%></td>
+                            <td><%= c.getStatut()%></td>
+                            <td><%= c.getUtilisateur()%></td>
                             <td>
                                 <a href="ProduitController?op=delete&id=<%=c.getId()%>" class="btn btn-danger">Supprimer</a>
                                 <a href="" class="btn btn-primary">Modifier</a>

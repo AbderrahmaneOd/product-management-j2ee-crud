@@ -11,32 +11,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import ma.projet.entities.Commande;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import ma.projet.services.CommandeService;
-import ma.projet.services.ProduitService;
+import ma.projet.entities.Utilisateur;
 import ma.projet.services.UtilisateurService;
 
 /**
  *
- * @author ADMIN
+ * @author hp
  */
-@WebServlet(name = "CommandeController", urlPatterns = {"/CommandeController"})
-public class CommandeController extends HttpServlet {
-
-    private ProduitService ps;
-    private CommandeService cmds;
+@WebServlet(name = "UtilisateurController", urlPatterns = {"/UtilisateurController"})
+public class UtilisateurController extends HttpServlet {
+    
+    
     private UtilisateurService us;
 
     @Override
     public void init() throws ServletException {
         super.init(); //To change body of generated methods, choose Tools | Templates.
-        cmds = new CommandeService();
         us = new UtilisateurService();
     }
-
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,31 +41,23 @@ public class CommandeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         if (request.getParameter("op") != null) {
             String op = request.getParameter("op");
-            if (op.equals("delete")) {
-                cmds.delete(cmds.getById(Integer.parseInt(request.getParameter("id"))));
+            if(op.equals("delete")){
+                us.delete(us.getById(Integer.parseInt(request.getParameter("id"))));
             }
-
         } else {
 
-            String dateStr = request.getParameter("date");
-            String statut = request.getParameter("statut");
-            int utilisateurId = Integer.parseInt(request.getParameter("utilisateurId"));
-            Date date = null;
-
-            if (dateStr != null && !dateStr.isEmpty()) {
-                try {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    date = dateFormat.parse(dateStr);
-                } catch (java.text.ParseException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-
-            cmds.create(new Commande(date, statut, us.getById(utilisateurId)));
+            String nom = request.getParameter("nom");
+            String prenom = request.getParameter("prenom");
+            String role = request.getParameter("role");
+            String telephone = request.getParameter("telephone");
+            String adresse = request.getParameter("adresse");
+            
+            us.create(new Utilisateur(nom, prenom, role, telephone, adresse));
         }
-        response.sendRedirect("Commande.jsp");
+        response.sendRedirect("Utilisateur.jsp");
 
     }
 

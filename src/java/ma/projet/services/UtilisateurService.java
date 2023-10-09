@@ -8,6 +8,7 @@ package ma.projet.services;
 import java.util.List;
 import ma.projet.dao.IDao;
 import ma.projet.entities.Categorie;
+import ma.projet.entities.Utilisateur;
 import ma.projet.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -15,12 +16,12 @@ import org.hibernate.Transaction;
 
 /**
  *
- * @author Lachgar
+ * @author hp
  */
-public class CategorieService implements IDao<Categorie> {
-    
+public class UtilisateurService implements IDao<Utilisateur>{
+
     @Override
-    public boolean create(Categorie o) {
+    public boolean create(Utilisateur o) {
         Session session = null;
         Transaction tx = null;
         try {
@@ -41,7 +42,28 @@ public class CategorieService implements IDao<Categorie> {
         }
     }
     
-    public boolean delete(Categorie o) {
+    public boolean update(Utilisateur o) {
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            session.update(o);
+            tx.commit();
+            return true;
+        } catch (HibernateException ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            return false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+    
+    public boolean delete(Utilisateur o) {
         Session session = null;
         Transaction tx = null;
         try {
@@ -62,54 +84,48 @@ public class CategorieService implements IDao<Categorie> {
         }
     }
 
-   
-   
-
     @Override
-    public List<Categorie> findAll() {
-        List<Categorie> categories = null;
+    public List<Utilisateur> findAll() {
+        List<Utilisateur> utilisateurs = null;
         Session session = null;
         Transaction tx = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            categories = session.createQuery("from Categorie").list();
+            utilisateurs = session.createQuery("from Utilisateur").list();
             tx.commit();
-            return categories;
+            return utilisateurs;
         } catch (HibernateException ex) {
             if(tx != null)
                 tx.rollback();
-            return categories;
+            return utilisateurs;
         } finally {
             if(session != null)
                 session.close();
         }
     }
 
-
-
     @Override
-    public Categorie getById(int id) {
-        Categorie categorie = null;
+    public Utilisateur getById(int id) {
+        Utilisateur utilisateur = null;
         Session session = null;
         Transaction tx = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            categorie = (Categorie) session.get(Categorie.class, id);
+            utilisateur = (Utilisateur) session.get(Utilisateur.class, id);
             tx.commit();
-            return categorie;
+            return utilisateur;
         } catch (HibernateException ex) {
             if (tx != null) {
                 tx.rollback();
             }
-            return categorie;
+            return utilisateur;
         } finally {
             if (session != null) {
                 session.close();
             }
         }
     }
-
     
 }

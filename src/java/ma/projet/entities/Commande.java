@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
@@ -23,8 +24,14 @@ public class Commande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date date;
+    
+    private String statut;
+    
+    @ManyToOne
+    private Utilisateur utilisateur;
 
     public Commande() {
     }
@@ -33,6 +40,12 @@ public class Commande {
         this.date = date;
     }
 
+    public Commande(Date date, String statut, Utilisateur utilisateur) {
+        this.date = date;
+        this.statut = statut;
+        this.utilisateur = utilisateur;
+    }
+    
     public int getId() {
         return id;
     }
@@ -48,7 +61,20 @@ public class Commande {
     public void setDate(Date date) {
         this.date = date;
     }
-    
-    
-    
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }  
 }

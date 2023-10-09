@@ -29,8 +29,8 @@ public class Utilisateur {
     private String telephone;
     private String adresse;
     
-//    @OneToMany
-//    List<Commande> commandes;
+    @OneToMany(mappedBy = "utilisateur")
+    List<Commande> commandes;
 
     public Utilisateur() {
     }
@@ -90,6 +90,12 @@ public class Utilisateur {
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
-    
-    
+
+    public List<Commande> getCommandes() {
+        return commandes;
+    }
+
+    public void setCommandes(List<Commande> commandes) {
+        this.commandes = commandes;
+    }
 }
