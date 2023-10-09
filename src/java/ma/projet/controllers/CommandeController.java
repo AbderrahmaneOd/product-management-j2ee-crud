@@ -17,11 +17,16 @@ import ma.projet.entities.Commande;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+<<<<<<< HEAD
 import ma.projet.entities.LigneCommandeProduit;
 import ma.projet.entities.LigneCommandeProduitPK;
 import ma.projet.services.CategorieService;
 import ma.projet.services.CommandeService;
 import ma.projet.services.LigneCommandeProduitService;
+=======
+import ma.projet.services.CategorieService;
+import ma.projet.services.CommandeService;
+>>>>>>> refs/remotes/origin/main
 import ma.projet.services.ProduitService;
 
 /**
@@ -33,16 +38,22 @@ public class CommandeController extends HttpServlet {
 
     private ProduitService ps;
     private CommandeService cmds;
+<<<<<<< HEAD
     private CommandeService cs;
     private LigneCommandeProduitService lcps;
+=======
+>>>>>>> refs/remotes/origin/main
 
     @Override
     public void init() throws ServletException {
         super.init(); //To change body of generated methods, choose Tools | Templates.
         cmds = new CommandeService();
+<<<<<<< HEAD
         ps = new ProduitService();
         cs = new CommandeService();
         lcps = new LigneCommandeProduitService();
+=======
+>>>>>>> refs/remotes/origin/main
     }
 
     /**
@@ -71,6 +82,7 @@ public class CommandeController extends HttpServlet {
                 try {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     date = dateFormat.parse(dateStr);
+<<<<<<< HEAD
                     int quantite = Integer.parseInt(request.getParameter("quantite"));
                     int ProduitId = Integer.parseInt(request.getParameter("produitId"));
                     Commande c = new Commande(date);
@@ -80,11 +92,17 @@ public class CommandeController extends HttpServlet {
                      LigneCommandeProduit lp = new LigneCommandeProduit(lpk, quantite);
                     lcps.create(lp);
 
+=======
+>>>>>>> refs/remotes/origin/main
                 } catch (java.text.ParseException e) {
                     System.out.println(e.getMessage());
                 }
             }
 
+<<<<<<< HEAD
+=======
+            cmds.create(new Commande(date));
+>>>>>>> refs/remotes/origin/main
         }
         response.sendRedirect("Commande.jsp");
 

@@ -10,6 +10,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="ma.projet.services.CategorieService"%>
 <%@page import="ma.projet.entities.Categorie"%>
+<<<<<<< HEAD
 <%@page import="ma.projet.services.ProduitService"%>
 <%@page import="ma.projet.entities.Produit"%>
 <%@page import="ma.projet.services.CommandeService"%>
@@ -18,6 +19,13 @@
 <%@page import="ma.projet.entities.Commande"%>
 <%@page import="ma.projet.entities.Produit"%>
 
+=======
+<%@page import="ma.projet.services.CommandeService"%>
+<%@page import="ma.projet.entities.Produit"%>
+
+<%@page import="ma.projet.services.ProduitService"%>
+<%@page import="ma.projet.entities.Commande"%>
+>>>>>>> refs/remotes/origin/main
 <!DOCTYPE html>
 
 
@@ -67,6 +75,7 @@
                             <input type="date" class="form-control" id="date" name="date" value="">
                         </div>
                     </div>
+<<<<<<< HEAD
                     <div class="row mb-3">
                         <div class="col-md-2">
                             <label for="produitId" class="form-label">Produit :</label>
@@ -96,6 +105,12 @@
 
                     <div class="row mb-3">
                         <div class="col-md-2">
+=======
+
+
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+>>>>>>> refs/remotes/origin/main
                             <button type="submit" class="btn btn-primary" name="valider" style="width: 200px; margin-left: 190px;">
                                 Valider</button>
                         </div>
@@ -111,19 +126,28 @@
                         <tr>
                             <th>Id</th>
                             <th>Date</th>
+<<<<<<< HEAD
                           
 
+=======
+>>>>>>> refs/remotes/origin/main
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <%
+<<<<<<< HEAD
                             CommandeService cs = new CommandeService();
                             for (Commande c : cs.findAll()) {
+=======
+                            CommandeService ps = new CommandeService();
+                            for (Commande c : ps.findAll()) {
+>>>>>>> refs/remotes/origin/main
                         %>
                         <tr>
                             <td><%= c.getId()%></td>
                             <td><%= c.getDate()%></td>
+<<<<<<< HEAD
                             
 
                             <td></td>
@@ -132,6 +156,11 @@
                                 <a href="CommandeController?op=delete&id=<%=c.getId()%>" class="btn btn-danger">Supprimer</a>
                                 <a href="" class="btn btn-primary">Modifier</a>
 
+=======
+                            <td>
+                                <a href="ProduitController?op=delete&id=<%=c.getId()%>" class="btn btn-danger">Supprimer</a>
+                                <a href="" class="btn btn-primary">Modifier</a>
+>>>>>>> refs/remotes/origin/main
                             </td>
                             <%}%>
                         </tr>
