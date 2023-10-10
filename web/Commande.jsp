@@ -108,9 +108,7 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Date</th>
-                          
-
+                            <th>Date</th>                       
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -122,10 +120,7 @@
                         <tr>
                             <td><%= c.getId()%></td>
                             <td><%= c.getDate()%></td>
-                            
-
-                            <td></td>
-
+                           
                             <td>
                                 <a href="CommandeController?op=delete&id=<%=c.getId()%>" class="btn btn-danger">Supprimer</a>
                                 <a href="" class="btn btn-primary">Modifier</a>
