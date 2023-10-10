@@ -49,8 +49,8 @@
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="Categorie.jsp">Categorie</a></li>
                     <li class="nav-item"><a class="nav-link" href="Produit.jsp">Produit</a></li>
-
-
+                    <li class="nav-item"><a class="nav-link" href="Commande.jsp">Commande</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Utilisateur.jsp">Utilisateur</a></li>
                 </ul>
             </div>
         </nav>
