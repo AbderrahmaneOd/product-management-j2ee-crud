@@ -18,8 +18,7 @@ import org.hibernate.Transaction;
  * @author Lachgar
  */
 public class CategorieService implements IDao<Categorie> {
-    
-    @Override
+     @Override
     public boolean create(Categorie o) {
         Session session = null;
         Transaction tx = null;
@@ -104,6 +103,27 @@ public class CategorieService implements IDao<Categorie> {
                 tx.rollback();
             }
             return categorie;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    public boolean update(Categorie c) {
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            session.update(c);
+            tx.commit();
+            return true;
+        } catch (HibernateException ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            return false;
         } finally {
             if (session != null) {
                 session.close();

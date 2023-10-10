@@ -22,23 +22,42 @@
     </head>
 
     <body>
-         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div >
-            <a class="navbar-brand" href="">
-                <img src="produit.png" style="margin-left: 80px;" alt="Logo" width="30" height="30">
+        <% Categorie categorie = (Categorie) request.getAttribute("categorie");%>
+        <% String op = "create";%>
+        <% int id = 0;
+            String libelle = "";
+            String code = "";
+            String btn = "valider";
+        %>
+        <%
+            if (categorie != null) {
+                op = "update";
+                id = categorie.getId();
+                libelle = categorie.getLibelle();
+                code = categorie.getCode();
+                btn = "modifier";
+            }
+        %>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div >
+                <a class="navbar-brand" href="">
+                    <img src="produit.png" style="margin-left: 80px;" alt="Logo" width="30" height="30">
+
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="Categorie.jsp">Categorie</a></li>
                     <li class="nav-item"><a class="nav-link" href="Produit.jsp">Produit</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Commande.jsp">Commande</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Utilisateur.jsp">Utilisateur</a></li>
-            </ul>
-        </div>
-    </nav>
-        <div class="container mt-5">
+
+
+                </ul>
+            </div>
+        </nav>
+        <div class="container mt-5" style="width: 80%; margin: auto;">
             <form action="CategorieController" method="post">
+                <input type="hidden" name="op" value="<%=op%>">
+                <input type="hidden" name="id" value="<%=id%>">
                 <fieldset>
                     <legend>Gestion des catégories</legend><br><br>
                     <div class="row mb-3">
@@ -46,7 +65,7 @@
                             <label for="code" class="form-label">Code:</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="code" name="code" value="">
+                            <input type="text" class="form-control" id="code" name="code" value="<%=code%>">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -54,12 +73,12 @@
                             <label for="libelle" class="form-label">Libellé:</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="libelle" name="libelle" value="">
+                            <input type="text" class="form-control" id="libelle" name="libelle" value="<%=libelle%>">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary" name="valider" style="width: 200px; margin-left: 190px;">Valider</button>
+                            <button type="submit" class="btn btn-primary" name="<%=btn%>" style="width: 200px; margin-left: 190px;"><%=op%></button>
                         </div>
                     </div>
                 </fieldset>
@@ -85,7 +104,7 @@
                             <td><%= c.getLibelle()%></td>
                             <td>
                                 <a href="CategorieController?op=delete&id=<%=c.getId()%>" class="btn btn-danger">Supprimer</a>
-                                <a href="#" class="btn btn-primary">Modifier</a>
+                                <a href="CategorieController?op=update&id=<%=c.getId()%>" class="btn btn-primary">Modifier</a>
                             </td>
                         </tr>
                         <%}%>

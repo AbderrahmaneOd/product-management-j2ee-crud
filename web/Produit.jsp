@@ -29,16 +29,13 @@
         <div >
             <a class="navbar-brand" href="">
                 <img src="produit.png" style="margin-left: 80px;" alt="Logo" width="30" height="30">
-
+                
             </a>
         </div>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="Categorie.jsp">Categorie</a></li>
                 <li class="nav-item"><a class="nav-link" href="Produit.jsp">Produit</a></li>
-                <li class="nav-item"><a class="nav-link" href="Commande.jsp">Commande</a></li>
-                <li class="nav-item"><a class="nav-link" href="Utilisateur.jsp">Utilisateur</a></li>
-
 
 
             </ul>
@@ -47,6 +44,7 @@
     <body>
         <div class="container mt-5">
             <form action="ProduitController" method="post">
+                <% Produit produit = (Produit) request.getAttribute("produit");%>
                 <fieldset>
                     <legend>Gestion des produits</legend><br><br>
                     <div class="row mb-3">
@@ -109,7 +107,7 @@
                             <td><%= p.getCategorie().getLibelle()%></td>
                             <td>
                                 <a href="ProduitController?op=delete&id=<%=p.getId()%>" class="btn btn-danger">Supprimer</a>
-                                <a href="" class="btn btn-primary">Modifier</a>
+                                <a href="ProduitController?op=update&id=<%=p.getId()%>" class="btn btn-primary">Modifier</a>
                             </td>
                             <%}%>
                         </tr>

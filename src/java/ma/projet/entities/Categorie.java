@@ -35,6 +35,13 @@ public class Categorie {
         this.libelle = libelle;
     }
 
+    public Categorie(int id, String code, String libelle) {
+        this.id = id;
+        this.code = code;
+        this.libelle = libelle;
+    }
+    
+
     public int getId() {
         return id;
     }

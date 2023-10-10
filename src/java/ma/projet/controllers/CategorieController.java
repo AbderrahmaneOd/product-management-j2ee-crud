@@ -23,6 +23,7 @@ import ma.projet.services.CategorieService;
 public class CategorieController extends HttpServlet {
 
     private CategorieService cs;
+    private Categorie categorie = null;
 
     @Override
     public void init() throws ServletException {
@@ -46,13 +47,26 @@ public class CategorieController extends HttpServlet {
             String op = request.getParameter("op");
             if(op.equals("delete")){
                 cs.delete(cs.getById(Integer.parseInt(request.getParameter("id"))));
-            }
-        } else {
-
-            String code = request.getParameter("code");
+            }else if(op.equals("update")&&request.getParameter("modifier") == null){
+                int categorieId = Integer.parseInt(request.getParameter("id"));
+                categorie = cs.getById(categorieId);
+                request.setAttribute("categorie", categorie);
+                
+                request.getRequestDispatcher("Categorie.jsp").forward(request, response);
+            }else if(request.getParameter("modifier") != null){
+                String code = request.getParameter("code");
+                String libelle = request.getParameter("libelle");
+                int categorieId = Integer.parseInt(request.getParameter("id"));
+                Categorie c = new Categorie(categorieId,code, libelle);
+                cs.update(c);
+                request.setAttribute("categorie", null);
+                request.getRequestDispatcher("Categorie.jsp").forward(request, response);
+            }else if(request.getParameter("valider") != null){
+                String code = request.getParameter("code");
             String libelle = request.getParameter("libelle");
             cs.create(new Categorie(code, libelle));
-        }
+            }
+        } 
         response.sendRedirect("Categorie.jsp");
 
     }

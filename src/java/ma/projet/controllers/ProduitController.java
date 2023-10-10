@@ -25,12 +25,14 @@ public class ProduitController extends HttpServlet {
 
     private ProduitService ps;
     private CategorieService cs;
+    private Produit produit;
 
     @Override
     public void init() throws ServletException {
         super.init(); //To change body of generated methods, choose Tools | Templates.
         ps = new ProduitService();
         cs = new CategorieService();
+        produit = new Produit();
     }
 
     /**
@@ -48,10 +50,28 @@ public class ProduitController extends HttpServlet {
             String op = request.getParameter("op");
             if (op.equals("delete")) {
                 ps.delete(ps.getById(Integer.parseInt(request.getParameter("id"))));
-            } 
+            } else if (op.equals("update")) {
+
+                int produitId = Integer.parseInt(request.getParameter("id"));
+                produit = ps.getById(produitId);
+                request.setAttribute("produit", produit);
+                
+                request.getRequestDispatcher("Produit.jsp").forward(request, response);
+
+            } else if (request.getParameter("modifier") != null) {
+                
+                int produit_id = Integer.parseInt(request.getParameter("id"));
+                double prix = Double.parseDouble(request.getParameter("prix"));
+                String reference = request.getParameter("reference");
+                int categorieId = Integer.parseInt(request.getParameter("categorieId"));
+                 
+                ps.update(new Produit(produit_id,reference,prix,cs.getById(categorieId)));
+                response.sendRedirect("Produit.jsp");
+            }
 
         } else {
-
+            
+            request.setAttribute("produit", produit);
             Double prix = Double.parseDouble(request.getParameter("prix"));
             String reference = request.getParameter("reference");
             int categorieId = Integer.parseInt(request.getParameter("categorieId"));
