@@ -112,7 +112,6 @@
                         <tr>
                             <td><%= u.getNom()%></td>
                             <td><%= u.getPrenom()%></td>
-                            <td><%= u.getPrenom()%></td>
                             <td><%= u.getRole()%></td>
                             <td><%= u.getTelephone()%></td>
                             <td><%= u.getAdresse()%></td>
