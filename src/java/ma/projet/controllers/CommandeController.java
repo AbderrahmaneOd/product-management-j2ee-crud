@@ -35,6 +35,7 @@ public class CommandeController extends HttpServlet {
     private CommandeService cmds;
     private CommandeService cs;
     private LigneCommandeProduitService lcps;
+    private Commande commande = null;
 
     @Override
     public void init() throws ServletException {
@@ -60,9 +61,39 @@ public class CommandeController extends HttpServlet {
             String op = request.getParameter("op");
             if (op.equals("delete")) {
                 cmds.delete(cmds.getById(Integer.parseInt(request.getParameter("id"))));
-            }
+            } else if (op.equals("update")) {
 
-        } else {
+                int commandeId = Integer.parseInt(request.getParameter("id"));
+                commande = cmds.getById(commandeId);
+                request.setAttribute("commande", commande);
+
+                request.getRequestDispatcher("Commande.jsp").forward(request, response);
+
+            } else if (request.getParameter("modifier") != null) {
+
+                int commande_id = Integer.parseInt(request.getParameter("id"));
+                String dateStr = request.getParameter("date");
+                Date date = null;
+                int categorieId = Integer.parseInt(request.getParameter("categorieId"));
+                if (dateStr != null && !dateStr.isEmpty()) {
+                    try {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        date = dateFormat.parse(dateStr);
+                        int quantite = Integer.parseInt(request.getParameter("quantite"));
+                        int ProduitId = Integer.parseInt(request.getParameter("produitId"));
+                        Commande c = new Commande(date);
+                        cs.update(c);
+                        Produit p = ps.getById(ProduitId);
+                        LigneCommandeProduitPK lpk = new LigneCommandeProduitPK(p.getId(), c.getId());
+                        LigneCommandeProduit lp = new LigneCommandeProduit(lpk, quantite);
+                        lcps.update(lp);
+
+                    } catch (java.text.ParseException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+                response.sendRedirect("Commande.jsp");
+            }else if (request.getParameter("valider") != null){
 
             String dateStr = request.getParameter("date");
             Date date = null;
@@ -77,7 +108,7 @@ public class CommandeController extends HttpServlet {
                     cs.create(c);
                     Produit p = ps.getById(ProduitId);
                     LigneCommandeProduitPK lpk = new LigneCommandeProduitPK(p.getId(), c.getId());
-                     LigneCommandeProduit lp = new LigneCommandeProduit(lpk, quantite);
+                    LigneCommandeProduit lp = new LigneCommandeProduit(lpk, quantite);
                     lcps.create(lp);
 
                 } catch (java.text.ParseException e) {
@@ -86,6 +117,8 @@ public class CommandeController extends HttpServlet {
             }
 
         }
+
+        } 
         response.sendRedirect("Commande.jsp");
 
     }

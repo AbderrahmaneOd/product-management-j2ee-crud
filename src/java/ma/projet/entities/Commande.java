@@ -31,7 +31,7 @@ public class Commande {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date date;
     
-    private String statut;
+    private String statut ;
     
     @ManyToOne
     private Utilisateur utilisateur;

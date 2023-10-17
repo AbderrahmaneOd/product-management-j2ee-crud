@@ -25,6 +25,26 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Produit</title>
     </head>
+    <% Produit produit = (Produit) request.getAttribute("produit");%>
+        <% String op = "create";%>
+        <% int id = 0;
+            String ref = "";
+            double prix = 0;
+            String btn = "valider";
+            int categorieId = -1;
+            String libelle = "";
+        %>
+        <%
+            if (produit != null) {
+                op = "update";
+                id = produit.getId();
+                ref = produit.getReference();
+                prix = produit.getPrix();
+                categorieId = produit.getCategorie().getId();
+                libelle = produit.getCategorie().getLibelle();
+                btn = "modifier";
+            }
+        %>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div >
             <a class="navbar-brand" href="">
@@ -44,7 +64,8 @@
     <body>
         <div class="container mt-5">
             <form action="ProduitController" method="post">
-                <% Produit produit = (Produit) request.getAttribute("produit");%>
+                <input type="hidden" name="op" value="<%=op%>">
+                <input type="hidden" name="id" value="<%=id%>">
                 <fieldset>
                     <legend>Gestion des produits</legend><br><br>
                     <div class="row mb-3">
@@ -52,7 +73,7 @@
                             <label for="prix" class="form-label">Prix:</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="prix" name="prix" value="">
+                            <input type="text" class="form-control" id="prix" name="prix" value="<%=prix%>">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -60,7 +81,7 @@
                             <label for="reference" class="form-label">Référence:</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="reference" name="reference" value="">
+                            <input type="text" class="form-control" id="reference" name="reference" value="<%=ref%>">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -70,6 +91,11 @@
                         <div class="col-md-4">
                             <select class="form-select" id="categorieId" name="categorieId">
                                 <option value="" disabled >Catégorie</option>
+                                <%
+                                if(op.equals("update")){
+                                %>
+                                <option value="<%=categorieId%>" selected><%=libelle%></option>
+                                <%}%>
                                 <% CategorieService cs = new CategorieService(); %>
                                 <% for (Categorie c : cs.findAll()) {%>
                                 <option value="<%= c.getId()%>"><%= c.getLibelle()%></option>
@@ -79,7 +105,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary" name="valider" style="width: 200px; margin-left: 190px;">Valider</button>
+                            <button type="submit" class="btn btn-primary" name="<%=btn%>" style="width: 200px; margin-left: 190px;"><%=op%></button>
                         </div>
                     </div>
                 </fieldset>

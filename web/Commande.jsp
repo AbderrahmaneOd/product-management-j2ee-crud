@@ -4,6 +4,7 @@
     Author     : ADMIN
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page import="ma.projet.services.UtilisateurService"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
@@ -32,6 +33,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Commande</title>
     </head>
+    <% Commande commande = (Commande) request.getAttribute("commande");%>
+        <% String op = "create";%>
+        <% int id = 0;
+            Date dateC = new Date();
+            String btn = "valider";
+        %>
+        <%
+            if (commande != null) {
+                op = "update";
+                id = commande.getId();
+                dateC = commande.getDate();
+                btn = "modifier";
+            }
+        %>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div >
             <a class="navbar-brand" href="">
@@ -53,6 +68,8 @@
     <body>
         <div class="container mt-5">
             <form action="CommandeController" method="post">
+                <input type="hidden" name="op" value="<%=op%>">
+                <input type="hidden" name="id" value="<%=id%>">
                 <fieldset>
                     <legend>Gestion des Commande</legend><br><br>
 
