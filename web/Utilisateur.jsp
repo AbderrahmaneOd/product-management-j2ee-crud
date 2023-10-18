@@ -133,7 +133,7 @@
                         <legend>Gestion des Utilisateurs</legend><br><br>
                         <div class="row mb-3">
                             <div class="col-md-2">
-                                <label for="nome" class="form-label">Nome</label>
+                                <label for="nom" class="form-label">Nom</label>
                             </div>
                             <div class="col-md-4">
                                 <input type="text" class="form-control" id="nom" name="nom" value="">

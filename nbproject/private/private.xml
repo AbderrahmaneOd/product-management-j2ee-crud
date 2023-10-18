@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/hp/Desktop/GI/S7/Developpement%20Web%20Java%20EE/Compte%20rendu%20Hibernate/product-management-j2ee-crud/src/java/ma/projet/controllers/UtilisateurController.java</file>
+            <file>file:/C:/Users/hp/Desktop/GI/S7/Developpement%20Web%20Java%20EE/Compte%20rendu%20Hibernate/product-management-j2ee-crud/src/java/ma/projet/controllers/ProduitController.java</file>
+            <file>file:/C:/Users/hp/Desktop/GI/S7/Developpement%20Web%20Java%20EE/Compte%20rendu%20Hibernate/product-management-j2ee-crud/web/Produit.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/GI/S7/Developpement%20Web%20Java%20EE/Compte%20rendu%20Hibernate/product-management-j2ee-crud/web/Utilisateur.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/GI/S7/Developpement%20Web%20Java%20EE/Compte%20rendu%20Hibernate/product-management-j2ee-crud/src/java/ma/projet/entities/Utilisateur.java</file>
+        </group>
     </open-files>
 </project-private>
