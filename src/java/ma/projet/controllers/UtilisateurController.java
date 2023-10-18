@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ma.projet.entities.Utilisateur;
+import ma.projet.services.CategorieService;
+import ma.projet.services.ProduitService;
 import ma.projet.services.UtilisateurService;
 
 /**
@@ -20,8 +22,7 @@ import ma.projet.services.UtilisateurService;
  */
 @WebServlet(name = "UtilisateurController", urlPatterns = {"/UtilisateurController"})
 public class UtilisateurController extends HttpServlet {
-    
-    
+
     private UtilisateurService us;
 
     @Override
@@ -29,7 +30,7 @@ public class UtilisateurController extends HttpServlet {
         super.init(); //To change body of generated methods, choose Tools | Templates.
         us = new UtilisateurService();
     }
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,21 +45,36 @@ public class UtilisateurController extends HttpServlet {
 
         if (request.getParameter("op") != null) {
             String op = request.getParameter("op");
-            if(op.equals("delete")){
+            if (op.equals("delete")) {
                 us.delete(us.getById(Integer.parseInt(request.getParameter("id"))));
             }
         } else {
+            if (request.getParameter("valider") != null) {
 
-            String nom = request.getParameter("nom");
-            String prenom = request.getParameter("prenom");
-            String role = request.getParameter("role");
-            String telephone = request.getParameter("telephone");
-            String adresse = request.getParameter("adresse");
-            
-            us.create(new Utilisateur(nom, prenom, role, telephone, adresse));
+                String nom = request.getParameter("nom");
+                String prenom = request.getParameter("prenom");
+                String role = request.getParameter("role");
+                String telephone = request.getParameter("telephone");
+                String adresse = request.getParameter("adresse");
+
+                us.create(new Utilisateur(nom, prenom, role, telephone, adresse));
+            } else {
+                String nom = request.getParameter("nom");
+                String prenom = request.getParameter("prenom");
+                String role = request.getParameter("role");
+                String telephone = request.getParameter("telephone");
+                String adresse = request.getParameter("adresse");
+
+                Utilisateur p = us.getById(Integer.parseInt(request.getParameter("id")));
+                p.setNom(nom);
+                p.setPrenom(prenom);
+                p.setRole(role);
+                p.setTelephone(telephone);
+                p.setAdresse(adresse);
+                us.update(p);
+            }
         }
         response.sendRedirect("Utilisateur.jsp");
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
